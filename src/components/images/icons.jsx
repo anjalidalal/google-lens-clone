@@ -1,7 +1,6 @@
 export const MikeIcon = () => {
   return (
     <svg
-      class="svprff"
       aria-label="Search by voice"
       role="img"
       focusable="false"
@@ -30,7 +29,6 @@ export const MikeIcon = () => {
 export const LensIcon = () => {
   return (
     <svg
-      class="b4yCbb"
       aria-label="Camera search"
       role="img"
       focusable="false"
