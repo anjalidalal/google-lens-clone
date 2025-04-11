@@ -23,6 +23,7 @@ const HomePage = () => {
   const [showMicUI, setShowMicUI] = useState(false);
   const [googleLensUpload, setGoogleLensUpload] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [showWebcam, setShowWebcam] = useState(false);
   const { transcript, listening, startListening } = useSpeechRecognition();
 
   useEffect(() => {
@@ -30,7 +31,6 @@ const HomePage = () => {
       setValue(transcript);
       inputRef.current?.focus();
       setIsInputFocused(true);
-      console.log(transcript);
     }
   }, [transcript]);
 
@@ -49,8 +49,6 @@ const HomePage = () => {
     setSelectedImage(null);
   };
 
-  console.log(value, selectedImage);
-
   return (
     <>
       <main>
@@ -63,7 +61,7 @@ const HomePage = () => {
             }`}
           >
             <div
-              className={`w-full flex items-center md:relative justify-center gap-8 ${
+              className={`w-full flex items-center relative justify-center gap-8 ${
                 isInputFocused && "lg:justify-start"
               }`}
             >
@@ -91,8 +89,8 @@ const HomePage = () => {
                   {selectedImage && (
                     <div className="pl-1">
                       <img
-                        alt={selectedImage.name}
-                        src={URL.createObjectURL(selectedImage)}
+                        alt="image"
+                        src={selectedImage}
                         className="h-8 w-9 rounded-lg object-cover"
                       />
                     </div>
@@ -131,7 +129,10 @@ const HomePage = () => {
                       <MikeIcon />
                     </button>
                     <button
-                      onClick={() => setGoogleLensUpload(true)}
+                      onClick={() => {
+                        setGoogleLensUpload(true);
+                        setShowWebcam(true);
+                      }}
                       className="md:px-3 pr-1"
                     >
                       <LensIcon />
@@ -142,15 +143,17 @@ const HomePage = () => {
                   <MicSearchScreen onClose={() => setShowMicUI(false)} />
                 )}
               </div>
+              {googleLensUpload && (
+                <GoogleLensUpload
+                  setOpen={setGoogleLensUpload}
+                  setValue={setValue}
+                  setSelectedImage={setSelectedImage}
+                  setIsInputFocused={setIsInputFocused}
+                  setShowWebcam={setShowWebcam}
+                  showWebcam={showWebcam}
+                />
+              )}
             </div>
-            {googleLensUpload && (
-              <GoogleLensUpload
-                setOpen={setGoogleLensUpload}
-                setValue={setValue}
-                setSelectedImage={setSelectedImage}
-                setIsInputFocused={setIsInputFocused}
-              />
-            )}
             {isInputFocused && (
               <div className="items-center mr-3 py-2 gap-5 hidden lg:flex">
                 <LabsIcon /> <GridIcon />
@@ -162,7 +165,13 @@ const HomePage = () => {
         {value.length > 0 ? (
           <SearchResultUI handleAction={handleShowDefaultScreen} />
         ) : (
-          <>{!isInputFocused ? <GoogleHomeScreen /> : <RecentSearches />}</>
+          <>
+            {!isInputFocused ? (
+              <GoogleHomeScreen />
+            ) : (
+              <RecentSearches setValue={setValue} />
+            )}
+          </>
         )}
         {openModal && (
           <GoogleAccountMenuModal setOpen={setOpenModal} open={openModal} />

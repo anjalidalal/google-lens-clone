@@ -8,3 +8,17 @@ body {
   box-sizing: border-box;
   background-color: #202124;
 }
+
+.reactEasyCrop_Image.reactEasyCrop_Contain {
+  width: 100% !important;
+  max-width: 320px !important;
+  height: 400px !important;
+  object-fit: cover;
+}
+
+.reactEasyCrop_CropArea {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 300px !important;
+  max-width: 320px !important;
+}
