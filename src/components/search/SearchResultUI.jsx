@@ -47,7 +47,7 @@ const dummyResults = [
 const SearchResultUI = ({ handleAction }) => {
   const [activeTab, setActiveTab] = useState(0);
   return (
-    <section className="min-h-screen flex flex-col items-center lg:items-start w-full">
+    <section className="flex flex-col items-center lg:items-start w-full">
       <div className="flex flex-col justify-center items-center lg:justify-start lg:items-start lg:max-w-full lg:w-full md:max-w-[576px] text-white">
         <div className="flex w-full mb-4 mt-2 md:mt-5 max-md:max-w-[576px] items-center px-4 gap-4 text-sm border-b lg:px-8 md:gap-6 border-gray-700">
           {["All", "Images", "Maps", "Videos", "News", "Books"].map(

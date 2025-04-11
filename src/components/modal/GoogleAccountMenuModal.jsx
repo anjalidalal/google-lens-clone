@@ -15,8 +15,11 @@ import { IoClose } from "react-icons/io5";
 import { MenuItem } from "../utils";
 import Modal from "./Modal";
 import logoTitle from "./../images/googlelogo_title.png";
+import { useSelector } from "react-redux";
 
 export const GoogleAccountMenuModal = ({ setOpen, open }) => {
+  const user = useSelector((state) => state?.data);
+
   return (
     <Modal open={open} onClose={setOpen}>
       <div className="mx-auto overflow-hidden">
@@ -35,14 +38,20 @@ export const GoogleAccountMenuModal = ({ setOpen, open }) => {
         </div>
         <div className="flex items-center justify-between p-4 ">
           <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-disabled text-base">
-              <FaUser className="h-4 w-4 text-gray-400" />
-            </div>
-            <div className="text-left">
-              <div className="text-base text-white">Anjali Dalal</div>
-              <div className="text-xs text-[#bfbfbf]">
-                anjalimaria2002@gmail.com
+            {user?.profilePicture ? (
+              <img
+                src={user?.profilePicture}
+                alt="Profile"
+                className={`h-8 w-8 cursor-pointer rounded-full object-cover`}
+              />
+            ) : (
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-disabled text-base">
+                <FaUser className="h-4 w-4 text-gray-400" />
               </div>
+            )}
+            <div className="text-left">
+              <div className="text-base text-white">{user?.name}</div>
+              <div className="text-xs text-[#bfbfbf]">{user?.email}</div>
             </div>
           </div>
           <FaChevronDown className="text-gray-400" />

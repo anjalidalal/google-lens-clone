@@ -2,7 +2,7 @@ import HomePage from "./components/home/Home";
 
 function App() {
   return (
-    <div>
+    <div className="min-h-screen">
       <HomePage />
     </div>
   );

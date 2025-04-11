@@ -1,8 +1,12 @@
 import React from "react";
 import { FaUser } from "react-icons/fa";
 import { GridIcon, LabsIcon } from "../images/icons";
+import { useSelector } from "react-redux";
+import { UserAccountCard } from "../utils";
 
 const PrimaryNavbar = ({ setOpen }) => {
+  const user = useSelector((state) => state?.data);
+
   return (
     <header className="flex justify-between items-center px-4 py-2 bg-[#202124] text-white">
       <div className="flex items-center gap-3">
@@ -30,19 +34,8 @@ const PrimaryNavbar = ({ setOpen }) => {
       </div>
 
       <div className="flex items-center gap-4">
-        <a
-          href="https://www.google.co.in/intl/en/about/products?tab=wh"
-          className="p-2 hover:bg-gray-700 rounded-full"
-          aria-label="Google Apps"
-        >
-          <GridIcon />
-        </a>
-        <div
-          onClick={() => setOpen(true)}
-          className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-disabled text-base"
-        >
-          <FaUser className="h-4 w-4 text-gray-400" />
-        </div>
+        <GridIcon />
+        <UserAccountCard setOpen={setOpen} />
       </div>
     </header>
   );
