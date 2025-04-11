@@ -14,15 +14,17 @@ import { UserAccountCard } from "../utils";
 import { useSelector } from "react-redux";
 import GoogleHomeScreen from "./GoogleHomeScreen";
 import RecentSearches from "../search/RecentSearch";
+import GoogleLensUpload from "../search/GoogleLensUpload";
 
 const HomePage = () => {
   const user = useSelector((state) => state?.data);
   const [openModal, setOpenModal] = useState(false);
   const [value, setValue] = useState("");
-  const [recentSearch, SetRecentSearch] = useState([]);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const inputRef = useRef(null);
   const [showMicUI, setShowMicUI] = useState(false);
+  const [googleLensUpload, setGoogleLensUpload] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
   const { transcript, listening, startListening } = useSpeechRecognition();
 
   useEffect(() => {
@@ -36,6 +38,7 @@ const HomePage = () => {
 
   const handleClear = () => {
     setValue(" ");
+    setSelectedImage(null);
   };
 
   const handleChange = (e) => {
@@ -45,9 +48,10 @@ const HomePage = () => {
   const handleShowDefaultScreen = () => {
     setValue("");
     setIsInputFocused(false);
+    setSelectedImage(null);
   };
 
-  console.log(user);
+  console.log(value, selectedImage);
 
   return (
     <>
@@ -61,7 +65,7 @@ const HomePage = () => {
             }`}
           >
             <div
-              className={`w-full flex items-center justify-center gap-8 ${
+              className={`w-full flex items-center md:relative justify-center gap-8 ${
                 isInputFocused && "lg:justify-start"
               }`}
             >
@@ -75,16 +79,28 @@ const HomePage = () => {
                 />
               )}
               <div className="flex items-center bg-[#202124] lg:w-full rounded-full p-2 w-full max-w-xl h-12 border border-[#70757a] focus-within:border-blue-500">
-                {isInputFocused && (
-                  <button
-                    className={`md:pl-2 text-gray-400 ${
-                      value || isInputFocused ? "block" : "hidden"
-                    }`}
-                    onClick={handleShowDefaultScreen}
-                  >
-                    <IoChevronBack size={20} />
-                  </button>
-                )}
+                <div className="flex items-center">
+                  {isInputFocused && (
+                    <button
+                      className={`md:pl-2 text-gray-400 ${
+                        value || isInputFocused ? "block" : "hidden"
+                      }`}
+                      onClick={handleShowDefaultScreen}
+                    >
+                      <IoChevronBack size={20} />
+                    </button>
+                  )}
+                  {selectedImage && (
+                    <div className="pl-1">
+                      <img
+                        alt={selectedImage.name}
+                        src={URL.createObjectURL(selectedImage)}
+                        className="h-8 w-9 rounded-lg object-cover"
+                      />
+                    </div>
+                  )}
+                </div>
+
                 <input
                   type="text"
                   value={value}
@@ -94,6 +110,7 @@ const HomePage = () => {
                   onFocus={() => setIsInputFocused(true)}
                   className="flex-1 bg-transparent text-white placeholder-gray-400 outline-none px-2 md:px-3"
                 />
+
                 {value && (
                   <button
                     className="p-2 text-gray-400 hover:text-white"
@@ -115,9 +132,12 @@ const HomePage = () => {
                     >
                       <MikeIcon />
                     </button>
-                    <div className="md:px-3 pr-1">
+                    <button
+                      onClick={() => setGoogleLensUpload(true)}
+                      className="md:px-3 pr-1"
+                    >
                       <LensIcon />
-                    </div>
+                    </button>
                   </div>
                 )}
                 {listening && showMicUI && (
@@ -125,6 +145,14 @@ const HomePage = () => {
                 )}
               </div>
             </div>
+            {googleLensUpload && (
+              <GoogleLensUpload
+                setOpen={setGoogleLensUpload}
+                setValue={setValue}
+                setSelectedImage={setSelectedImage}
+                setIsInputFocused={setIsInputFocused}
+              />
+            )}
             {isInputFocused && (
               <div className="items-center mr-3 py-2 gap-5 hidden lg:flex">
                 <LabsIcon /> <GridIcon />

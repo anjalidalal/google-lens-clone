@@ -22,23 +22,23 @@ const dummyResults = [
     title: "Pin by Ána R. on L'été | Nature instagram, Nature photography...",
   },
   {
-    id: 1,
+    id: 4,
     image: img4,
     title: "GuliriFei Women's Two Piece...",
     source: "Amazon.com",
   },
   {
-    id: 2,
+    id: 5,
     image: img4,
     title: "Buy Trendyol Striped Cotton Top...",
   },
   {
-    id: 3,
+    id: 6,
     image: img3,
     title: "Purple Knit Summer Top...",
   },
   {
-    id: 1,
+    id: 7,
     image: img4,
     title: "GuliriFei Women's Two Piece...",
   },
@@ -70,23 +70,33 @@ const SearchResultUI = ({ handleAction }) => {
           <div className="px-4 max-md:max-w-[576px] lg:max-w-[652px] justify-start py-2 md:px-0 flex gap-2 lg:gap-4">
             <ResultCard
               item={dummyResults[0]}
+              key={dummyResults[0].id}
               className="h-[400px] md:h-[437px]"
             />
             <div>
               {dummyResults.slice(1, 3).map((item) => (
-                <ResultCard item={item} className="h-[185px] md:h-[200px]" />
+                <ResultCard
+                  item={item}
+                  key={item.id}
+                  className="h-[185px] md:h-[200px]"
+                />
               ))}
             </div>
           </div>
           <div className="px-4 max-md:max-w-[576px] md:w-full lg:max-w-[652px] justify-start py-2 md:px-0 flex gap-2 lg:gap-4">
             <ResultCard
               item={dummyResults[3]}
+              key={dummyResults[3].id}
               className="h-[400px] md:h-[437px]"
               width="w-6/12"
             />
             <div className="w-6/12">
               {dummyResults.slice(4, 6).map((item) => (
-                <ResultCard item={item} className="h-[185px] md:h-[200px]" />
+                <ResultCard
+                  item={item}
+                  key={item.id}
+                  className="h-[185px] md:h-[200px]"
+                />
               ))}
             </div>
           </div>
