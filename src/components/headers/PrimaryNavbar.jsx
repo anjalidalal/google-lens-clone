@@ -1,12 +1,8 @@
 import React from "react";
-import { FaUser } from "react-icons/fa";
 import { GridIcon, LabsIcon } from "../images/icons";
-import { useSelector } from "react-redux";
 import { UserAccountCard } from "../utils";
 
 const PrimaryNavbar = ({ setOpen }) => {
-  const user = useSelector((state) => state?.data);
-
   return (
     <header className="flex justify-between items-center px-4 py-2 bg-[#202124] text-white">
       <div className="flex items-center gap-3">

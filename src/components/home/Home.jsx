@@ -11,13 +11,11 @@ import SearchResultUI from "../search/SearchResultUI";
 import logoTitle from "./../images/googlelogo_title.png";
 import { GridIcon, LabsIcon } from "../images/icons";
 import { UserAccountCard } from "../utils";
-import { useSelector } from "react-redux";
 import GoogleHomeScreen from "./GoogleHomeScreen";
 import RecentSearches from "../search/RecentSearch";
 import GoogleLensUpload from "../search/GoogleLensUpload";
 
 const HomePage = () => {
-  const user = useSelector((state) => state?.data);
   const [openModal, setOpenModal] = useState(false);
   const [value, setValue] = useState("");
   const [isInputFocused, setIsInputFocused] = useState(false);
