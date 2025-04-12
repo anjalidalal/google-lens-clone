@@ -2,13 +2,31 @@ import { FaUser } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { signInWithGoogle } from "../firebase";
 
-export const MenuItem = ({ icon, label, subLabel }) => (
-  <div className="flex items-center  border-b border-b-[#70757a] justify-between p-4 hover:bg-[#3C4043] cursor-pointer">
-    <div className="flex items-center gap-4">
-      <div className="text-white text-lg">{icon}</div>
-      <div>
-        <p className="text-sm font-medium text-white">{label}</p>
-        {subLabel && <p className="text-xs text-gray-400 -mt-1">{subLabel}</p>}
+export const MenuItem = ({ icon, label, subLabel, border, semiBorder }) => (
+  <div
+    className={`flex items-center justify-between py-3 pl-4 hover:bg-[#3C4043] cursor-pointer ${
+      semiBorder && "pt-0"
+    } ${border && "border-b border-b-[#70757a]"}`}
+  >
+    <div
+      className={`flex gap-4 w-full ${
+        subLabel ? "items-start" : "items-center"
+      }`}
+    >
+      <div className={`text-white text-lg ${semiBorder && "pt-3"}`}>{icon}</div>
+      <div className="w-full flex flex-col items-start justify-start">
+        <p
+          className={`text-sm font-medium text-white ${
+            semiBorder && "border-t border-t-[#70757a] w-full pt-3 text-left"
+          }`}
+        >
+          {label}
+        </p>
+        {subLabel && (
+          <p className="text-left text-sm mt-3 pt-3 font-medium w-full text-white border-t border-t-[#70757a]">
+            {subLabel}
+          </p>
+        )}
       </div>
     </div>
   </div>

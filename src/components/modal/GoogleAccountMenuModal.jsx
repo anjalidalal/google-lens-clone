@@ -1,16 +1,13 @@
-import React, { useState } from "react";
-import {
-  FaChevronDown,
-  FaClock,
-  FaKey,
-  FaThLarge,
-  FaLock,
-  FaSearch,
-  FaUser,
-  FaShieldAlt,
-  FaQuestionCircle,
-  FaCogs,
-} from "react-icons/fa";
+import React from "react";
+import { FaChevronDown, FaUser, FaShieldAlt, FaCogs } from "react-icons/fa";
+import { BsIncognito } from "react-icons/bs";
+import { RiKeyFill } from "react-icons/ri";
+import { CgProfile } from "react-icons/cg";
+import { RxCounterClockwiseClock } from "react-icons/rx";
+import { MdOutlineInterests } from "react-icons/md";
+import { FaRegCircleQuestion } from "react-icons/fa6";
+import { TbSettings } from "react-icons/tb";
+
 import { IoClose } from "react-icons/io5";
 import { MenuItem } from "../utils";
 import Modal from "./Modal";
@@ -25,7 +22,7 @@ export const GoogleAccountMenuModal = ({ setOpen, open }) => {
       <div className="mx-auto overflow-hidden">
         <IoClose
           onClick={() => setOpen(false)}
-          className="w-5 h-5 fixed top-3 left-3 cursor-pointer text-[#bfbfbf]"
+          className="w-5 h-5 fixed top-4 left-3 cursor-pointer text-[#bfbfbf]"
         />
         <div className="flex justify-center text-text-dark-p items-center">
           <img
@@ -60,26 +57,25 @@ export const GoogleAccountMenuModal = ({ setOpen, open }) => {
           Manage your Google Account
         </button>
         <div className="border-t border-t-[#70757a]">
-          <MenuItem icon={<FaThLarge />} label="Turn on Incognito" />
+          <MenuItem icon={<BsIncognito />} label="Turn on Incognito" border />
           <MenuItem
-            icon={<FaClock />}
+            icon={<RxCounterClockwiseClock />}
             label="Search history"
-            subLabel="Saving"
+            subLabel="Delete last 15 mins"
+            border
           />
+          <MenuItem icon={<FaShieldAlt size={16} />} label="SafeSearch" />
+          <MenuItem icon={<MdOutlineInterests />} label="Interests" />
+          <MenuItem icon={<RiKeyFill />} label="Passwords" />
+          <MenuItem icon={<CgProfile />} label="Your profile" />
+          <MenuItem icon={<TbSettings />} label="Settings" semiBorder />
           <MenuItem
-            icon={<div className="h-4 w-4"></div>}
-            label="Delete last 15 mins"
+            icon={<FaRegCircleQuestion size={16} />}
+            label="Help and feedback"
+            border
           />
-          <MenuItem icon={<FaShieldAlt />} label="SafeSearch" />
-          <MenuItem icon={<FaThLarge />} label="Interests" />
-          <MenuItem icon={<FaKey />} label="Passwords" />
-          <MenuItem icon={<FaUser />} label="Your profile" />
-          <MenuItem icon={<FaSearch />} label="Search personalisation" />
-          <MenuItem icon={<FaCogs />} label="Settings" />
-          <MenuItem icon={<FaQuestionCircle />} label="Help and feedback" />
         </div>
-
-        <div className="flex justify-center items-center gap-2 text-xs text-gray-400 py-4 border-t border-gray-700">
+        <div className="flex justify-center items-center gap-2 text-xs text-gray-400 py-4">
           <span className="hover:underline cursor-pointer">Privacy Policy</span>
           <span>•</span>
           <span className="hover:underline cursor-pointer">

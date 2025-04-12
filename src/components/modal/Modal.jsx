@@ -59,13 +59,13 @@ const Modal = ({
               leave="ease-in duration-200"
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              className="h-[calc(100vh-100px)] w-full flex justify-center items-center"
+              className="h-[calc(100vh-170px)] w-full flex justify-center items-center"
             >
               <DialogPanel
                 className={
                   panelClassName
                     ? `${panelClassName}`
-                    : `relative transform overflow-hidden overflow-y-auto bg-[rgba(60,64,67,.9)] my-8 rounded-lg py-6 h-full text-center shadow-xl transition-all w-[400px] max-md:w-full`
+                    : `relative transform overflow-hidden overflow-y-auto bg-[rgba(60,64,67,.9)] my-8 rounded-lg pt-2 pb-6 h-full text-center shadow-xl transition-all w-[400px] max-md:w-full`
                 }
               >
                 {children}

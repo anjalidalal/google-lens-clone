@@ -2,9 +2,9 @@ import { initializeApp } from "firebase/app";
 import "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import "firebase/auth";
-import { getAuth, signInWithPopup } from "firebase/auth";
 import { setUser } from "./redux/userSlice";
 import { store } from "./redux/store";
+import { getAuth, signInWithPopup, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBvL4tI3xhLIYv7zf0TWx-ZR8F-NCNxOpE",
@@ -36,4 +36,34 @@ export const signInWithGoogle = async () => {
   } catch (error) {
     console.error(`Google sign-in error: ${error}`);
   }
+};
+
+export const initAuthListener = (onAuthResolved) => {
+  return onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const { uid, displayName, email, photoURL } = user;
+      store.dispatch(
+        setUser({
+          name: displayName || "",
+          email: email || "",
+          profilePicture: photoURL || "",
+          isAuthenticated: true,
+          uid: uid,
+        })
+      );
+    } else {
+      store.dispatch(
+        setUser({
+          name: "",
+          email: "",
+          profilePicture: "",
+          isAuthenticated: false,
+          uid: "",
+        })
+      );
+    }
+    if (onAuthResolved) {
+      onAuthResolved();
+    }
+  });
 };

@@ -1,10 +1,14 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import Cropper from "react-easy-crop";
 import Webcam from "react-webcam";
 import { GalleryIcon, GoogleCloneIcon } from "../images/icons";
 import { IoClose } from "react-icons/io5";
 import { getCroppedImg } from "./google-lens";
 import { HiSearch } from "react-icons/hi";
+import { IoChevronBack } from "react-icons/io5";
+import { RxCounterClockwiseClock } from "react-icons/rx";
+import { MdFlashOff } from "react-icons/md";
+import { PiDotsThreeOutlineFill } from "react-icons/pi";
 
 const GoogleLensUpload = ({
   setOpen,
@@ -83,12 +87,12 @@ const GoogleLensUpload = ({
       className={`${
         !setOpen
           ? "hidden"
-          : "top-0 h-screen md:h-[372px] fixed w-full z-50 flex md:absolute items-center md:w-[576px] justify-center"
+          : "top-0 max-md:min-h-screen sm:min-h-screen md:min-h-[372px]  md:h-[372px] fixed w-full z-50 flex md:absolute items-center md:w-[576px] justify-center"
       }`}
     >
       <div
         style={{ boxShadow: "0px 4px 6px rgba(32, 33, 36, 0.28)" }}
-        className="bg-[#303134] md:rounded-3xl h-screen md:h-auto w-full md:p-5"
+        className="bg-[#303134] md:rounded-3xl min-h-screen md:min-h-full md:h-auto w-full md:p-5"
       >
         <section className="hidden md:block">
           <div className="flex relative md:justify-center items-center mb-4">
@@ -145,20 +149,36 @@ const GoogleLensUpload = ({
           </div>
         </section>
         {showWebcam && setOpen && (
-          <div className="sm:relative md:hidden w-full h-screen aspect-video bg-black overflow-hidden shadow-xl">
+          <div className=" md:hidden w-full min-h-screen bg-black overflow-auto shadow-xl">
+            <header className="flex absolute bg-transparent z-[100] px-4 py-5 items-center justify-between w-full text-white">
+              <div className="flex items-center gap-4">
+                <IoChevronBack
+                  size={25}
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                />
+                <MdFlashOff size={24} />
+              </div>
+              <h3 className="text-xl font-medium">Google Lens</h3>
+              <div className="flex items-center gap-4">
+                <RxCounterClockwiseClock size={22} />
+                <PiDotsThreeOutlineFill size={24} />
+              </div>
+            </header>
             <Webcam
               audio={false}
               ref={webcamRef}
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
-              className="w-full h-full object-cover"
+              className="w-full min-h-screen relative object-cover"
               mirrored={facingMode === "user"} // Mirror front cam
             />
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="absolute inset-0 bottom-7 flex items-center justify-center pointer-events-none">
               <div className="w-3/4 h-3/4 border-4 border-white rounded-xl opacity-60" />
             </div>
-            <section className="absolute bottom-4 left-0 right-0 flex justify-center items-center">
-              <div className="max-w-[350px] w-full flex justify-between items-center px-8">
+            <section className="bg-white flex justify-center items-center">
+              <div className="max-w-[350px] bottom-4 mb-3 absolute w-full flex justify-between items-center px-8">
                 <button
                   onClick={() => imageInputRef.current?.click()}
                   className="h-[44px] w-[44px] cursor-pointer bg-white inline-flex justify-center items-center rounded-full"
@@ -188,7 +208,7 @@ const GoogleLensUpload = ({
           </div>
         )}
         {imageSrc && (
-          <div className="h-screen md:hidden bg-black mb-6 rounded overflow-hidden">
+          <div className="min-h-screen md:hidden bg-black mb-6 rounded overflow-hidden">
             <Cropper
               image={imageSrc}
               crop={crop}

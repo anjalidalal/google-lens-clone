@@ -36,6 +36,7 @@ const HomePage = () => {
 
   const handleClear = () => {
     setValue(" ");
+    inputRef.current?.focus();
     setSelectedImage(null);
   };
 
