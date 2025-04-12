@@ -149,7 +149,7 @@ const GoogleLensUpload = ({
           </div>
         </section>
         {showWebcam && setOpen && (
-          <div className=" md:hidden w-full min-h-screen bg-black overflow-auto shadow-xl">
+          <div className="relative md:hidden w-full min-h-screen bg-black overflow-auto shadow-xl">
             <header className="flex absolute bg-transparent z-[100] px-4 py-5 items-center justify-between w-full text-white">
               <div className="flex items-center gap-4">
                 <IoChevronBack
@@ -171,14 +171,14 @@ const GoogleLensUpload = ({
               ref={webcamRef}
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
-              className="w-full min-h-screen relative object-cover"
+              className="w-full min-h-screen object-cover"
               mirrored={facingMode === "user"} // Mirror front cam
             />
-            <div className="absolute inset-0 bottom-7 flex items-center justify-center pointer-events-none">
+            {/* <div className="absolute inset-0 bottom-7 flex items-center justify-center pointer-events-none">
               <div className="w-3/4 h-3/4 border-4 border-white rounded-xl opacity-60" />
-            </div>
-            <section className="bg-white flex justify-center items-center">
-              <div className="max-w-[350px] bottom-4 mb-3 absolute w-full flex justify-between items-center px-8">
+            </div> */}
+            <section className="bottom-24 mb-24 absolute w-full flex justify-center items-center">
+              <div className="max-w-[350px] w-full flex justify-between items-center px-8">
                 <button
                   onClick={() => imageInputRef.current?.click()}
                   className="h-[44px] w-[44px] cursor-pointer bg-white inline-flex justify-center items-center rounded-full"

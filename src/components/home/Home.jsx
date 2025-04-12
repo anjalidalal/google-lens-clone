@@ -57,8 +57,10 @@ const HomePage = () => {
         <section className="pt-5 flex px-2 justify-center items-center flex-col">
           {!isInputFocused && <SecondaryNavbar />}
           <section
-            className={`w-full flex items-center p-2 ${
-              isInputFocused ? "lg:justify-between" : "justify-center"
+            className={`w-full flex items-center ${
+              isInputFocused
+                ? "lg:justify-between fixed top-0 p-4 w-full bg-[#202124]"
+                : "justify-center p-2"
             }`}
           >
             <div
@@ -75,7 +77,9 @@ const HomePage = () => {
                   alt="Google"
                 />
               )}
-              <div className="flex items-center bg-[#202124] lg:w-full rounded-full p-2 w-full max-w-xl h-12 border border-[#70757a] focus-within:border-blue-500">
+              <div
+                className={`flex items-center bg-[#202124] lg:w-full rounded-full p-2 w-full max-w-xl h-12 border border-[#70757a]`}
+              >
                 <div className="flex items-center">
                   {isInputFocused && (
                     <button
@@ -163,17 +167,19 @@ const HomePage = () => {
             )}
           </section>
         </section>
-        {value.length > 0 ? (
-          <SearchResultUI handleAction={handleShowDefaultScreen} />
-        ) : (
-          <>
-            {!isInputFocused ? (
-              <GoogleHomeScreen />
-            ) : (
-              <RecentSearches setValue={setValue} />
-            )}
-          </>
-        )}
+        <section className={`${isInputFocused && "mt-14"}`}>
+          {value.length > 0 ? (
+            <SearchResultUI handleAction={handleShowDefaultScreen} />
+          ) : (
+            <>
+              {!isInputFocused ? (
+                <GoogleHomeScreen />
+              ) : (
+                <RecentSearches setValue={setValue} />
+              )}
+            </>
+          )}
+        </section>
         {openModal && (
           <GoogleAccountMenuModal setOpen={setOpenModal} open={openModal} />
         )}
